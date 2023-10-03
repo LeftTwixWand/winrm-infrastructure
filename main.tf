@@ -59,13 +59,13 @@ resource "azurerm_network_interface" "iis_nic" {
   ip_configuration {
     name                          = "private-ipconfig"
     private_ip_address_allocation = "Static"
-    private_private_ip_address    =  "10.1.0.5"
+    private_ip_address            = "10.1.0.5"
     public_ip_address_id          = azurerm_public_ip.iis_pip.id
     subnet_id                     = azurerm_subnet.subnet.id
   }
 }
 resource "azurerm_network_interface_security_group_association" "iis_nic_association" {
-  network_interface_id      = azurerm_network_interface.iis-nic.id
+  network_interface_id      = azurerm_network_interface.iis_nic.id
   network_security_group_id = azurerm_network_security_group.rdp_nsg.id
 }
 
