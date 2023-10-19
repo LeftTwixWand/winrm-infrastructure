@@ -138,7 +138,7 @@ resource "azurerm_windows_virtual_machine" "ja_vm" {
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "ja_shutdown_scheduler" {
   virtual_machine_id    = azurerm_windows_virtual_machine.ja_vm.id
   location              = azurerm_resource_group.rg.location
-  enabled               = true
+  enabled               = false
   timezone              = "Central Europe Standard Time"
   daily_recurrence_time = "2000"
 
@@ -149,7 +149,7 @@ resource "azurerm_dev_test_global_vm_shutdown_schedule" "ja_shutdown_scheduler" 
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "iis_shutdown_scheduler" {
   virtual_machine_id    = azurerm_windows_virtual_machine.iis_vm.id
   location              = azurerm_resource_group.rg.location
-  enabled               = true
+  enabled               = false
   daily_recurrence_time = "2000"
   timezone              = "Central Europe Standard Time"
 
