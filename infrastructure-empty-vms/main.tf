@@ -38,15 +38,15 @@ resource "azurerm_network_security_group" "rdp_nsg" {
   location            = azurerm_resource_group.rg.location
 
   security_rule {
-    name                        = "RDP"
-    access                      = "Allow"
-    destination_address_prefix  = "*"
-    destination_port_range      = "3389"
-    direction                   = "Inbound"
-    priority                    = 300
-    protocol                    = "Tcp"
-    source_address_prefix       = "*"
-    source_port_range           = "*"
+    name                       = "RDP"
+    access                     = "Allow"
+    destination_address_prefix = "*"
+    destination_port_range     = "3389"
+    direction                  = "Inbound"
+    priority                   = 300
+    protocol                   = "Tcp"
+    source_address_prefix      = "*"
+    source_port_range          = "*"
   }
 }
 
@@ -78,24 +78,24 @@ resource "azurerm_network_interface" "ja_nic" {
   ip_configuration {
     name                          = "private-ipconfig"
     private_ip_address_allocation = "Static"
-    private_ip_address            = "10.1.0.4" 
+    private_ip_address            = "10.1.0.4"
     public_ip_address_id          = azurerm_public_ip.ja_pip.id
     subnet_id                     = azurerm_subnet.subnet.id
   }
 }
 resource "azurerm_network_interface_security_group_association" "ja_nic_association" {
-  network_interface_id      = azurerm_network_interface.ja_nic.id 
+  network_interface_id      = azurerm_network_interface.ja_nic.id
   network_security_group_id = azurerm_network_security_group.rdp_nsg.id
 }
 
 resource "azurerm_windows_virtual_machine" "iis_vm" {
-  name                  = "iis-vm"
-  resource_group_name   = azurerm_resource_group.rg.name
-  location              = azurerm_resource_group.rg.location
-  size                  = "Standard_DS1_v2"
+  name                = "iis-vm"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  size                = "Standard_DS1_v2"
 
-  admin_username        = "vmadmin"
-  admin_password        = "P@ssw0rd1234!"
+  admin_username = "vmadmin"
+  admin_password = "P@ssw0rd1234!"
 
   network_interface_ids = [azurerm_network_interface.iis_nic.id]
 
@@ -112,13 +112,13 @@ resource "azurerm_windows_virtual_machine" "iis_vm" {
   }
 }
 resource "azurerm_windows_virtual_machine" "ja_vm" {
-  name                  = "ja-vm"
-  resource_group_name   = azurerm_resource_group.rg.name
-  location              = azurerm_resource_group.rg.location
-  size                  = "Standard_DS1_v2"
+  name                = "ja-vm"
+  resource_group_name = azurerm_resource_group.rg.name
+  location            = azurerm_resource_group.rg.location
+  size                = "Standard_DS1_v2"
 
-  admin_username        = "vmadmin"
-  admin_password        = "P@ssw0rd1234!"
+  admin_username = "vmadmin"
+  admin_password = "P@ssw0rd1234!"
 
   network_interface_ids = [azurerm_network_interface.ja_nic.id]
 
