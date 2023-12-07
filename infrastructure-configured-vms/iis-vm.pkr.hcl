@@ -10,16 +10,19 @@ packer {
 variable "client_id" {
   type      = string
   sensitive = true
+  default   = "default-value"
 }
 
 variable "client_secret" {
   type      = string
   sensitive = true
+  default   = "default-value"
 }
 
 variable "subscription_id" {
   type      = string
   sensitive = true
+  default   = "default-value"
 }
 
 source "azure-arm" "iis-vm" {
@@ -49,10 +52,10 @@ build {
   sources = ["source.azure-arm.iis-vm"]
 
   provisioner "powershell" {
-    script = "./configure-winrm.ps1"
+    script = "./scripts/configure-winrm.ps1"
   }
 
   provisioner "powershell" {
-    script = "./install-iis.ps1"
+    script = "./scripts/install-iis.ps1"
   }
 }
