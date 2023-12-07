@@ -36,8 +36,4 @@ jobs:
 
     - name: Validate Packer
       run: packer validate ./iis-vm.pkr.hcl
-      working-directory: ${{ env.working_directory }} 
-
-    - name: Validate Packer Build Agent
-      run: packer validate ./iis-vm.pkr.hcl
-      working-directory: ${{ env.working_directory }} 
+      working-directory: ${{ env.working_directory }}
