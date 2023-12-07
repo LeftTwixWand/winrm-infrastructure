@@ -31,7 +31,7 @@ jobs:
       working-directory: ${{ env.working_directory }} 
 
     - name: Packer Format
-      run: packer fmt
+      run: packer fmt ./iis-vm.pkr.hcl
       working-directory: ${{ env.working_directory }} 
 
     - name: Validate Packer
