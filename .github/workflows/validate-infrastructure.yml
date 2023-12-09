@@ -1,0 +1,48 @@
+name: Validate Infrastructure
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+
+jobs:
+  tests-terraform:
+    name: Tests Terraform Configuration
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      
+    - name: Terraform Init
+      run: terraform init -backend=false
+
+    # Validate terraform files
+    - name: Terraform Validate
+      run: terraform validate
+
+    - name: Terraform Format
+      run: terraform fmt -check -recursive
+
+  test-iis-vm:
+    name: Test Packer Configurations for IIS VM
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Packer
+      uses: hashicorp/setup-packer@main
+
+    - name: Init Packer
+      run: packer init ./iis-vm.pkr.hcl
+
+    - name: Packer Format
+      run: packer fmt ./iis-vm.pkr.hcl
+
+    - name: Validate Packer
+      run: packer validate ./iis-vm.pkr.hcl
