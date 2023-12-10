@@ -2,7 +2,7 @@ packer {
   required_plugins {
     azure = {
       source  = "github.com/hashicorp/azure"
-      version = "~> 2"
+      version = "2.0.1"
     }
   }
 }
@@ -10,25 +10,29 @@ packer {
 variable "client_id" {
   type      = string
   sensitive = true
-  default   = "default-value"
 }
 
 variable "client_secret" {
   type      = string
   sensitive = true
-  default   = "default-value"
 }
 
 variable "subscription_id" {
   type      = string
   sensitive = true
-  default   = "default-value"
+}
+
+variable "tenant_id" {
+  type      = string
+  sensitive = true
 }
 
 source "azure-arm" "iis-vm" {
-  client_id       = "${var.client_id}"
-  client_secret   = "${var.client_secret}"
-  subscription_id = "${var.subscription_id}"
+  // client_id       = "${var.client_id}"
+  // client_secret   = "${var.client_secret}"
+  // subscription_id = "${var.subscription_id}"
+  // tenant_id       = "${var.tenant_id}"
+  use_azure_cli_auth = true
 
   managed_image_name                = "iis-vm-image"
   managed_image_resource_group_name = "packer-images-rg"
@@ -52,10 +56,11 @@ build {
   sources = ["source.azure-arm.iis-vm"]
 
   provisioner "powershell" {
-    script = "./scripts/configure-winrm.ps1"
+    scripts = [
+      // "scripts/configure-winrm.ps1",
+      "scripts/install-iis.ps1",
+    ]
   }
 
-  provisioner "powershell" {
-    script = "./scripts/install-iis.ps1"
-  }
+  provisioner "windows-restart" {}
 }
