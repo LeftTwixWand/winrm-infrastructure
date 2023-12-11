@@ -46,8 +46,8 @@ jobs:
     - name: Setup Packer
       uses: hashicorp/setup-packer@main
 
-    - name: Init Packer
+    - name: Packer Init 
       run: packer init ./iis-vm.pkr.hcl
 
-    - name: Validate Packer
-      run: packer validate ./iis-vm.pkr.hcl
+    - name: Packer Build
+      run: packer build ./iis-vm.pkr.hcl
