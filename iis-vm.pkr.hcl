@@ -7,31 +7,7 @@ packer {
   }
 }
 
-variable "client_id" {
-  type      = string
-  sensitive = true
-}
-
-variable "client_secret" {
-  type      = string
-  sensitive = true
-}
-
-variable "subscription_id" {
-  type      = string
-  sensitive = true
-}
-
-variable "tenant_id" {
-  type      = string
-  sensitive = true
-}
-
 source "azure-arm" "iis-vm" {
-  // client_id       = "${var.client_id}"
-  // client_secret   = "${var.client_secret}"
-  // subscription_id = "${var.subscription_id}"
-  // tenant_id       = "${var.tenant_id}"
   use_azure_cli_auth = true
 
   managed_image_name                = "iis-vm-image"
@@ -57,8 +33,8 @@ build {
 
   provisioner "powershell" {
     scripts = [
-      // "scripts/configure-winrm.ps1",
-      "scripts/install-iis.ps1",
+      "scripts/configure-winrm.ps1",
+      // "scripts/install-iis.ps1",
     ]
   }
 
