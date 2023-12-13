@@ -17,8 +17,8 @@ resource "azurerm_subnet" "subnet" {
   address_prefixes     = ["10.1.0.0/24"]
 }
 
-resource "azurerm_public_ip" "ja_pip" {
-  name                = "ja-pip"
+resource "azurerm_public_ip" "agent_pip" {
+  name                = "agent-pip"
   location            = azurerm_resource_group.rg.location
   resource_group_name = azurerm_resource_group.rg.name
   allocation_method   = "Static"
@@ -69,8 +69,8 @@ resource "azurerm_network_interface_security_group_association" "iis_nic_associa
   network_security_group_id = azurerm_network_security_group.rdp_nsg.id
 }
 
-resource "azurerm_network_interface" "ja_nic" {
-  name                          = "ja-nic"
+resource "azurerm_network_interface" "agent_nic" {
+  name                          = "agent-nic"
   location                      = azurerm_resource_group.rg.location
   resource_group_name           = azurerm_resource_group.rg.name
   enable_accelerated_networking = true
@@ -79,12 +79,12 @@ resource "azurerm_network_interface" "ja_nic" {
     name                          = "private-ipconfig"
     private_ip_address_allocation = "Static"
     private_ip_address            = "10.1.0.4"
-    public_ip_address_id          = azurerm_public_ip.ja_pip.id
+    public_ip_address_id          = azurerm_public_ip.agent_pip.id
     subnet_id                     = azurerm_subnet.subnet.id
   }
 }
-resource "azurerm_network_interface_security_group_association" "ja_nic_association" {
-  network_interface_id      = azurerm_network_interface.ja_nic.id
+resource "azurerm_network_interface_security_group_association" "agent_nic_association" {
+  network_interface_id      = azurerm_network_interface.agent_nic.id
   network_security_group_id = azurerm_network_security_group.rdp_nsg.id
 }
 
@@ -98,6 +98,7 @@ resource "azurerm_windows_virtual_machine" "iis_vm" {
   admin_password = "P@ssw0rd1234!" # TODO: Change this to a secret
 
   network_interface_ids = [azurerm_network_interface.iis_nic.id]
+  source_image_id = "/subscriptions/${data.azurerm_subscription.current.subscription_id}/resourceGroups/packer-images-rg/providers/Microsoft.Compute/images/iis-vm-image"
 
   os_disk {
     caching              = "ReadWrite"
@@ -111,8 +112,9 @@ resource "azurerm_windows_virtual_machine" "iis_vm" {
     version   = "latest"
   }
 }
-resource "azurerm_windows_virtual_machine" "ja_vm" {
-  name                = "ja-vm"
+
+resource "azurerm_windows_virtual_machine" "agent_vm" {
+  name                = "agent-vm"
   resource_group_name = azurerm_resource_group.rg.name
   location            = azurerm_resource_group.rg.location
   size                = "Standard_DS1_v2"
@@ -120,8 +122,8 @@ resource "azurerm_windows_virtual_machine" "ja_vm" {
   admin_username = "vmadmin"
   admin_password = "P@ssw0rd1234!" # TODO: Change this to a secret
 
-  network_interface_ids = [azurerm_network_interface.ja_nic.id]
-
+  network_interface_ids = [azurerm_network_interface.agent_nic.id]
+  
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Premium_LRS"
@@ -135,8 +137,8 @@ resource "azurerm_windows_virtual_machine" "ja_vm" {
   }
 }
 
-resource "azurerm_dev_test_global_vm_shutdown_schedule" "ja_shutdown_scheduler" {
-  virtual_machine_id    = azurerm_windows_virtual_machine.ja_vm.id
+resource "azurerm_dev_test_global_vm_shutdown_schedule" "agent_shutdown_scheduler" {
+  virtual_machine_id    = azurerm_windows_virtual_machine.agent_vm.id
   location              = azurerm_resource_group.rg.location
   enabled               = false
   timezone              = "Central Europe Standard Time"
