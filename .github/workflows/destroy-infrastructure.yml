@@ -3,6 +3,10 @@ name: Destroy Infrastructure
 on:
   workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   remove-resources-group:
     name: Remove Infrastructure
