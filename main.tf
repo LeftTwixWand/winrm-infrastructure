@@ -1,5 +1,5 @@
 resource "azurerm_resource_group" "rg" {
-  name     = "extensions-rg"
+  name     = "winrm-infrastructure-rg"
   location = "Germany West Central"
 }
 
