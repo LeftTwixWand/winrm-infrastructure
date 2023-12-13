@@ -19,6 +19,12 @@ jobs:
         client-id: ${{ secrets.AZURE_CLIENT_ID }}
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      
+    - name: Terraform destroy
+      run: terraform destroy
   
     - name: Delete images resource group
       uses: azure/CLI@v1
@@ -33,9 +39,3 @@ jobs:
         azcliversion: latest
         inlineScript: |
           az group delete --name packer-build-rg --yes
-
-    - name: Setup Terraform
-      uses: hashicorp/setup-terraform@v3
-      
-    - name: Terraform destroy
-      run: terraform destroy
