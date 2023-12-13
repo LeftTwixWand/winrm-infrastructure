@@ -106,13 +106,6 @@ resource "azurerm_windows_virtual_machine" "iis_vm" {
     caching              = "ReadWrite"
     storage_account_type = "Premium_LRS"
   }
-
-  # source_image_reference {
-  #   offer     = "WindowsServer"
-  #   publisher = "MicrosoftWindowsServer"
-  #   sku       = "2022-datacenter-azure-edition"
-  #   version   = "latest"
-  # }
 }
 
 resource "azurerm_windows_virtual_machine" "agent_vm" {
