@@ -26,13 +26,6 @@ jobs:
         azcliversion: latest
         inlineScript: |
           az group create -l germanywestcentral -n packer-images-rg
-
-    - name: Create resource group
-      uses: azure/CLI@v1
-      with:
-        azcliversion: latest
-        inlineScript: |
-          az group create -l germanywestcentral -n packer-build-rg
   
   packer-build-IIS:
     name: Build IIS VM image
