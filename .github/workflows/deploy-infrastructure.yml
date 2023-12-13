@@ -9,7 +9,7 @@ permissions:
 
 jobs:
   create-resource-group:
-    name: Create Azure resource group for VM images
+    name: Create Azure resource groups for VM images
     runs-on: ubuntu-latest
 
     steps:
@@ -26,6 +26,13 @@ jobs:
         azcliversion: latest
         inlineScript: |
           az group create -l germanywestcentral -n packer-images-rg
+
+    - name: Create resource group
+      uses: azure/CLI@v1
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az group create -l germanywestcentral -n packer-build-rg
   
   packer-build-IIS:
     name: Build IIS VM image
