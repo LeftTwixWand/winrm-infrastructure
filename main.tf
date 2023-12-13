@@ -100,7 +100,7 @@ resource "azurerm_windows_virtual_machine" "iis_vm" {
   admin_password = "P@ssw0rd1234!" # TODO: Change this to a secret
 
   network_interface_ids = [azurerm_network_interface.iis_nic.id]
-  source_image_id = "/subscriptions/${data.azurerm_subscription.current.subscription_id}/resourceGroups/packer-images-rg/providers/Microsoft.Compute/images/iis-vm-image"
+  source_image_id       = "/subscriptions/${data.azurerm_subscription.current.subscription_id}/resourceGroups/packer-images-rg/providers/Microsoft.Compute/images/iis-vm-image"
 
   os_disk {
     caching              = "ReadWrite"
@@ -125,7 +125,7 @@ resource "azurerm_windows_virtual_machine" "agent_vm" {
   admin_password = "P@ssw0rd1234!" # TODO: Change this to a secret
 
   network_interface_ids = [azurerm_network_interface.agent_nic.id]
-  
+
   os_disk {
     caching              = "ReadWrite"
     storage_account_type = "Premium_LRS"
