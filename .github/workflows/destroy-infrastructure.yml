@@ -3,6 +3,10 @@ name: Destroy Infrastructure
 on:
   workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   remove-resources-group:
     name: Remove Infrastructure
@@ -16,12 +20,19 @@ jobs:
         tenant-id: ${{ secrets.AZURE_TENANT_ID }}
         subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
   
-    - name: Create resource gropu
+    - name: Delete images resource group
       uses: azure/CLI@v1
       with:
         azcliversion: latest
         inlineScript: |
-          az group delete --name packer-images-rg
+          az group delete --name packer-images-rg --yes
+
+    - name: Delete build resource group
+      uses: azure/CLI@v1
+      with:
+        azcliversion: latest
+        inlineScript: |
+          az group delete --name packer-build-rg --yes
 
     - name: Setup Terraform
       uses: hashicorp/setup-terraform@v3
