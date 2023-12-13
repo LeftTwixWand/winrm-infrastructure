@@ -1,0 +1,36 @@
+name: Deploy Only Terraform Infrastructure
+
+on:
+  workflow_dispatch: # Allows you to run this workflow manually from the Actions tab
+
+permissions:
+  id-token: write
+  contents: read
+
+jobs:  
+  deploy-terraform:
+    name: Deploy terraform
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v3
+      
+    - name: Terraform Init
+      run: terraform init
+
+    - name: Terraform Plan
+      run: terraform plan
+
+    - name: Terraform apply
+      run: terraform apply
