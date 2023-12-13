@@ -34,9 +34,9 @@ build {
   provisioner "powershell" {
     scripts = [
       "scripts/configure-winrm.ps1",
-      "scripts/sysprep.ps1",
+      // "scripts/sysprep.ps1",
     ]
   }
 
-  provisioner "windows-restart" {}
+  // provisioner "windows-restart" {}
 }
