@@ -12,7 +12,7 @@ source "azure-arm" "iis-vm" {
 
   managed_image_name                = "iis-vm-image"
   managed_image_resource_group_name = "packer-images-rg"
-  build_resource_group_name         = "packer-build-rg"
+  // build_resource_group_name         = "packer-build-rg"
 
   image_publisher = "MicrosoftWindowsServer"
   image_offer     = "WindowsServer"
