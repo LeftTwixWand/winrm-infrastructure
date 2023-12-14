@@ -52,10 +52,35 @@ jobs:
     - name: Packer Build
       run: packer build ./iis-vm.pkr.hcl
     
+  packer-build-agent:
+    name: Build IIS VM image
+    runs-on: ubuntu-latest
+    needs: create-resource-group
+    
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: Azure login
+      uses: azure/login@v1
+      with:
+        client-id: ${{ secrets.AZURE_CLIENT_ID }}
+        tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+        subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+    
+    - name: Setup Packer
+      uses: hashicorp/setup-packer@main
+    
+    - name: Packer Init 
+      run: packer init ./iis-vm.pkr.hcl
+    
+    - name: Packer Build
+      run: packer build -var "azure_devops_org=${{ secrets.AZURE_DEVOPS_ORG }}" -var "azure_devops_pat=${{ secrets.AZURE_DEVOPS_PAT }}" ./build-agent-vm.pkr.hcl
+
   deploy-terraform:
     name: Deploy terraform
     runs-on: ubuntu-latest
-    needs: [packer-build-IIS]
+    needs: [packer-build-IIS, packer-build-agent]
 
     steps:
     - name: Checkout

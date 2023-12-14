@@ -37,6 +37,4 @@ build {
       "scripts/sysprep.ps1",
     ]
   }
-
-  // provisioner "windows-restart" {}
 }
