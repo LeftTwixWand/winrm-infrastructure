@@ -35,10 +35,3 @@ jobs:
         azcliversion: latest
         inlineScript: |
           az group delete --name packer-images-rg --yes
-
-    - name: Delete build resource group
-      uses: azure/CLI@v1
-      with:
-        azcliversion: latest
-        inlineScript: |
-          az group delete --name packer-build-rg --yes
