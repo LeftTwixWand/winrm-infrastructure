@@ -53,7 +53,7 @@ jobs:
       run: packer build ./iis-vm.pkr.hcl
     
   packer-build-agent:
-    name: Build IIS VM image
+    name: Build Agent VM image
     runs-on: ubuntu-latest
     needs: create-resource-group
     
