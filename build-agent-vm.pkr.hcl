@@ -9,12 +9,12 @@ packer {
 
 variable "azure_devops_org" {
   type      = string
-  // sensitive = true
+  sensitive = true
 }
 
 variable "azure_devops_pat" {
   type      = string
-  // sensitive = true
+  sensitive = true
 }
 
 source "azure-arm" "build-agent-vm" {
