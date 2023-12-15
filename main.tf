@@ -125,12 +125,13 @@ resource "azurerm_windows_virtual_machine" "agent_vm" {
     storage_account_type = "Premium_LRS"
   }
 
-  source_image_reference {
-    offer     = "WindowsServer"
-    publisher = "MicrosoftWindowsServer"
-    sku       = "2022-datacenter-azure-edition"
-    version   = "latest"
-  }
+  # For VM without source_image_id
+  # source_image_reference {
+  #   offer     = "WindowsServer"
+  #   publisher = "MicrosoftWindowsServer"
+  #   sku       = "2022-datacenter-azure-edition"
+  #   version   = "latest"
+  # }
 }
 
 resource "azurerm_dev_test_global_vm_shutdown_schedule" "agent_shutdown_scheduler" {
