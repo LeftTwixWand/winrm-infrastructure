@@ -25,6 +25,9 @@ jobs:
 
     - name: Terraform Init
       run: terraform init
+
+    - name: Terraform Refresh
+      run: terraform refresh
       
     - name: Terraform destroy
       run: terraform destroy
