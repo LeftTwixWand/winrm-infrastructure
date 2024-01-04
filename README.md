@@ -1,4 +1,4 @@
-# WinRm Infrastructure
+# WinRM Infrastructure
 Deploy whole infrastructure for IIS Web App Deployment Using WinRM extension in one click.
 <img width="713" alt="image" src="https://github.com/LeftTwixWand/winrm-infrastructure/assets/50652041/58884e54-684c-4406-965c-cbf4614e065c">
 
