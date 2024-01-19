@@ -1,3 +1,5 @@
+Write-Host "Running install-iis.ps1";
+
 # Install IIS Server
 Install-WindowsFeature `
 Web-Server, `
