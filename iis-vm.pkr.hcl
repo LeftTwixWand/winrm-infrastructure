@@ -34,6 +34,7 @@ build {
   provisioner "powershell" {
     scripts = [
       "scripts/configure-winrm.ps1",
+      "scripts/install-iis.ps1",
       "scripts/sysprep.ps1",
     ]
   }
