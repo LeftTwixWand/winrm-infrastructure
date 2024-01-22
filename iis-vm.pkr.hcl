@@ -35,7 +35,6 @@ build {
     scripts = [
       "scripts/configure-winrm.ps1",
       "scripts/sysprep.ps1",
-      "scripts/install-iis.ps1",
     ]
   }
 }
