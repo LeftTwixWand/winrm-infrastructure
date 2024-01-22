@@ -8,17 +8,17 @@
 # New-NetFirewallRule -DisplayName "Enable WinRM 5985" -Direction Inbound -LocalPort 5985 -Protocol TCP -Action Allow
 # Restart-Service winrm
 
-winrm enumerate winrm/config/listener;
+# winrm enumerate winrm/config/listener;
 
-winrm delete winrm/config/Listener?Address=*+Transport=HTTPS;
+# winrm delete winrm/config/Listener?Address=*+Transport=HTTPS;
 
 winrm enumerate winrm/config/listener;
 
 winrm quickconfig;
 
-$ip = "10.1.0.5";
-$cert = New-SelfSignedCertificate -DnsName $ip -CertStoreLocation Cert:\LocalMachine\My;
-winrm create winrm/config/Listener?Address=*+Transport=HTTPS '@{Hostname="'"$ip"'";CertificateThumbprint="'"$($cert.Thumbprint)"'"}';
+# $ip = "10.1.0.5";
+# $cert = New-SelfSignedCertificate -DnsName $ip -CertStoreLocation Cert:\LocalMachine\My;
+# winrm create winrm/config/Listener?Address=*+Transport=HTTPS '@{Hostname="'"$ip"'";CertificateThumbprint="'"$($cert.Thumbprint)"'"}';
 
 winrm enumerate winrm/config/listener;
 
