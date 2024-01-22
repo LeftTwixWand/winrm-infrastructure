@@ -12,9 +12,9 @@
 
 # winrm delete winrm/config/Listener?Address=*+Transport=HTTPS;
 
-winrm enumerate winrm/config/listener;
+# winrm enumerate winrm/config/listener;
 
-winrm quickconfig;
+# winrm quickconfig;
 
 # $ip = "10.1.0.5";
 # $cert = New-SelfSignedCertificate -DnsName $ip -CertStoreLocation Cert:\LocalMachine\My;
