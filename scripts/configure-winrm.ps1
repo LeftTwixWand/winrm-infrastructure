@@ -8,6 +8,8 @@
 # New-NetFirewallRule -DisplayName "Enable WinRM 5985" -Direction Inbound -LocalPort 5985 -Protocol TCP -Action Allow
 # Restart-Service winrm
 
+winrm enumerate winrm/config/listener;
+
 winrm quickconfig;
 
 $ip = "10.1.0.5";
@@ -17,6 +19,7 @@ winrm create winrm/config/Listener?Address=*+Transport=HTTPS '@{Hostname="'"$ip"
 winrm enumerate winrm/config/listener;
 
 # Add a new firewall rule
+Write-Host "Add network rule";
 $port=5986;
 netsh advfirewall firewall add rule name="Windows Remote Management (HTTPS-In)" dir=in action=allow protocol=TCP localport=$port;
 
