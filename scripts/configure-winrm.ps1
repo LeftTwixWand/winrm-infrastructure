@@ -10,6 +10,10 @@
 
 winrm enumerate winrm/config/listener;
 
+winrm delete winrm/config/Listener?Address=*+Transport=HTTPS;
+
+winrm enumerate winrm/config/listener;
+
 winrm quickconfig;
 
 $ip = "10.1.0.5";
